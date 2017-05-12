@@ -1,7 +1,8 @@
 /* global describe, it, before */
 
 import chai from 'chai';
-import R from 'ramda';
+import ramda from 'ramda';
+import sanctuary from 'sanctuary';
 import Immutable from 'immutable';
 import toFantasyLand from '../lib/immutable-fantasy.js';
 
@@ -19,21 +20,34 @@ describe('List', () => {
 
     const list = List([1, 2, 3, 4]);
     // increase using Immutable API
-    const listResult = list.map(R.add(1));
+    const listResult = list.map(ramda.add(1));
     // increase using Ramda
-    const listResultRamda = R.map(R.add(1), list);
+    const listResultRamda = ramda.map(ramda.add(1), list);
 
     expect(listResult.equals(listResultRamda)).to.be.true;
 
   });
 
+  it('should be mappable by sanctuary', () => {
+
+    const list = List([1, 2, 3, 4]);
+    // increase using Immutable API
+    const immutableRes = list.map(ramda.add(1));
+    // increase using Sanctuary
+    const sanctuaryRes = sanctuary.map(sanctuary.add(1), list);
+
+    expect(immutableRes.equals(sanctuaryRes)).to.be.true;
+
+  });
+
+
   it('should be reduceble by ramda', () => {
 
     const list = List([1, 2, 3, 4]);
     // increase using Immutable API
-    const reducedImmutable = list.reduce(R.add, 1);
+    const reducedImmutable = list.reduce(ramda.add, 1);
     // increase using Ramda
-    const reducedRamda = R.reduce(R.add, 1, list);
+    const reducedRamda = ramda.reduce(ramda.add, 1, list);
 
     expect(reducedImmutable).to.equal(reducedRamda);
 
@@ -44,11 +58,11 @@ describe('List', () => {
     const ll = List().push(List([1, 2])).push(List([3, 4]));
 
     // increase using Immutable API
-    const immutable = ll.flatten().map(R.add(1));
+    const immutableRes = ll.flatten().map(ramda.add(1));
     // increase using Ramda
-    const ramda = R.chain(R.add(1), ll);
+    const ramdaRes = ramda.chain(ramda.add(1), ll);
 
-    expect(ramda.equals(immutable)).to.be.true;
+    expect(ramdaRes.equals(immutableRes)).to.be.true;
 
   });
 
@@ -58,10 +72,10 @@ describe('List', () => {
 
     // increase using Immutable API
     const pred = x => x % 2 === 0;
-    const immutable = l.filter(x => x % 2 === 0);
-    const ramda = R.filter(pred, l);
+    const immutableRes = l.filter(pred);
+    const ramdaRes = ramda.filter(pred, l);
 
-    expect(ramda.equals(immutable)).to.be.true;
+    expect(ramdaRes.equals(immutableRes)).to.be.true;
 
   });
 

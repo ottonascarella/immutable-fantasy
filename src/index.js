@@ -2,7 +2,7 @@ import FL from '../node_modules/fantasy-land';
 
 const ticketToFantasyLand = (Immutable) => {
 
-  const {Collection} = Immutable;
+  let {Collection} = Immutable;
 
   Collection.prototype[FL.map] = Collection.prototype.map;
 

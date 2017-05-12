@@ -19,10 +19,11 @@
     "chai": "3.5.0",
     "eslint": "3.19.0",
     "eslint-loader": "1.7.1",
+    "immutable": "^3.8.1",
     "mocha": "3.3.0",
     "ramda": "^0.23.0",
+    "sanctuary": "^0.12.2",
     "webpack": "2.4.1",
-    "immutable": "^3.8.1",
     "yargs": "7.1.0"
   },
   "repository": {
